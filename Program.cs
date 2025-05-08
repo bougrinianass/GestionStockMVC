@@ -18,6 +18,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.SignIn.RequireConfirmedAccount = false;
 }).AddEntityFrameworkStores<IdentityDbContext>();
 
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient<StockService>();
@@ -46,7 +48,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Stock}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

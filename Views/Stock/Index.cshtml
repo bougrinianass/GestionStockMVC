@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Liste de produits</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Créer un nouveau produit</a>
 </p>
 <table class="table">
     <thead>
@@ -40,17 +40,17 @@
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.Price) $
             </td>
-            <td>
+                <td class="d-flex">
                     <form asp-action="Edit" method="get" asp-route-id="@item.Id">
-                        <button type="submit">Edit</button>
+                        <button class="btn btn-warning mx-1" type="submit">Edit</button>
                     </form>
                     <form asp-action="Details" method="post" asp-route-id="@item.Id">
-                        <button type="submit">Details</button>
+                        <button type="submit" class="btn btn-info mx-1">Details</button>
                     </form>
-                    <form asp-action="Delete" method="post" asp-route-id="@item.Id" onsubmit="return confirm('Confirmer la suppression ?');">
-                        <button type="submit">Supprimer</button>
+                    <form asp-action="Delete" method="post" asp-route-id="@item.Id" onsubmit="return confirm('Confirmer la suppression du produit @item.Name ?');">
+                        <button type="submit" class="btn btn-danger mx-1">Supprimer</button>
                     </form>
                 </td>
         </tr>
@@ -61,5 +61,4 @@
 <div>
     <a href="@Url.Action("Export", "Stock", new { type = "excel" })" class="btn btn-success">Exporter en Excel</a>
     <a href="@Url.Action("Export", "Stock", new { type = "pdf" })" class="btn btn-danger">Exporter en PDF</a>
-    <a href="@Url.Action("Export", "Stock", new { type = "word" })" class="btn btn-primary">Exporter en Word</a>
 </div>
