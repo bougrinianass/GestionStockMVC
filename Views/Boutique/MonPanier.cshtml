@@ -1,0 +1,34 @@
+﻿@model List<PanierItem>
+
+<h2>Votre Panier</h2>
+
+@if (!Model.Any())
+{
+    <p>Le panier est vide.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.NomProduit</td>
+                    <td>@item.Quantite</td>
+                    <td>@(item.Quantite * item.PrixUnitaire) €</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form method="post" asp-action="ValiderCommande">
+        <button type="submit" class="btn btn-success">Valider la commande</button>
+    </form>
+}

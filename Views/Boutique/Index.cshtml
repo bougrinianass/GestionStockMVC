@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Produit>
+
+<h2>Nos Produits</h2>
+
+<div class="row">
+    @foreach (var produit in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@produit.Name</h5>
+                    <p><strong>@produit.Price.ToString("C")</strong></p>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Boutique", new { id = produit.Id })">Voir</a>
+                    <form method="post" asp-action="AjouterAuPanier" asp-controller="Boutique">
+                        <input type="hidden" name="produitId" value="@produit.Id" />
+                        <label>Quantité :</label>
+                        <input type="number" name="quantite" style="width:20%" value="1" min="1" class="form-control" />
+                        <button type="submit" class="btn btn-success mt-2">+panier</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
