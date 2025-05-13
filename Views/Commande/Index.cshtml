@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Commande>
+
+<table class="table table-bordered table-hover mt-4">
+    <thead class="table-light">
+        <tr>
+            <th>N° commande</th>
+            <th>Date commande</th>
+            <th>Statut commande</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.DateCommande.ToString("dd/MM/yyyy")</td>
+                <td>@item.Statut</td>
+            </tr>
+            <tr class="table-secondary">
+                <td colspan="3">
+                    <details>
+                        <summary class="fw-bold mb-2">Voir les détails de la commande</summary>
+                        <ul class="list-group list-group-flush">
+                            @foreach (var detail in item.LignesCommande)
+                            {
+                                <li class="list-group-item">
+                                    <strong>Produit :</strong> @detail.Produit.Name <br/>
+                                    <strong>Prix unitaire :</strong> @(detail.PrixUnitaire) €<br/>
+                                    <strong>Quantité :</strong> @detail.Quantite<br/>
+                                    <strong>Prix total :</strong> @(detail.PrixUnitaire * detail.Quantite) €
+                                </li>
+                            }
+                        </ul>
+                    </details>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

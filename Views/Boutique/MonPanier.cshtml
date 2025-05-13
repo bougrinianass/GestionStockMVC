@@ -1,34 +1,65 @@
 ﻿@model List<PanierItem>
 
-<h2>Votre Panier</h2>
+<div class="container mt-4">
+    <h2 class="mb-4">🛒 Votre Panier</h2>
 
-@if (!Model.Any())
-{
-    <p>Le panier est vide.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.NomProduit</td>
-                    <td>@item.Quantite</td>
-                    <td>@(item.Quantite * item.PrixUnitaire) €</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            Le panier est vide.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Sous-total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.NomProduit</td>
+                            <td>@item.Quantite</td>
+                            <td>@item.PrixUnitaire.ToString("C")</td>
+                            <td>@(item.Quantite * item.PrixUnitaire) €</td>
+                            <td>
+                                <form method="post" asp-action="RetirerDuPanier" asp-controller="Boutique" class="d-inline">
+                                    <input type="hidden" name="produitId" value="@item.ProduitId" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-    <form method="post" asp-action="ValiderCommande">
-        <button type="submit" class="btn btn-success">Valider la commande</button>
-    </form>
-}
+        <!-- Total général -->
+        <div class="text-end me-2">
+            <h4>
+                Total : <span class="text-success fw-bold">
+                    @Model.Sum(item => item.Quantite * item.PrixUnitaire) €
+                </span>
+            </h4>
+        </div>
+
+        <!-- Bouton valider -->
+        <div class="text-end mt-3">
+            <form method="post" asp-action="ValiderCommande">
+                <button type="submit" class="btn btn-success btn-lg">
+                    ✅ Valider la commande
+                </button>
+            </form>
+        </div>
+    }
+</div>

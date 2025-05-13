@@ -41,7 +41,19 @@ namespace AppGestionStockMVC.Services
                 Session.Remove(PanierKey);
             }
 
-            private void SavePanier(List<PanierItem> panier)
+        public void RetirerItemDuPanier(Produit item)
+        {
+            var panier = GetPanier();
+            var existant = panier.FirstOrDefault(p => p.ProduitId == item.Id);
+            if (existant != null)
+            {
+                panier.Remove(existant);
+            }
+            SavePanier(panier);
+        }
+
+
+        private void SavePanier(List<PanierItem> panier)
             {
                 var data = JsonSerializer.Serialize(panier);
                 Session.SetString(PanierKey, data);

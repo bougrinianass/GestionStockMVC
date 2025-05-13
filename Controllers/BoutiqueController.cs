@@ -38,6 +38,19 @@ namespace AppGestionStockMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RetirerDuPanier(int produitId)
+        {
+            var produits = await _stockService.GetProduitsAsync();
+            var produit = produits.FirstOrDefault(p => p.Id == produitId);
+            if (produit == null) return NotFound();
+
+            _panier.RetirerItemDuPanier(produit);
+
+            TempData["Message"] = "Produit retiré au panier.";
+            return RedirectToAction("MonPanier");
+        }
+
         public IActionResult MonPanier()
         {
             var panier = _panier.GetPanier();
