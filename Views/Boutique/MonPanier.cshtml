@@ -27,9 +27,20 @@
                     {
                         <tr>
                             <td>@item.NomProduit</td>
-                            <td>@item.Quantite</td>
+                            <td>
+                                <div class="input-group">
+                                    <form asp-controller="Boutique" asp-action="ChangerQuantitéPanier" method="post" class="d-flex align-items-center">
+                                        <input type="number" name="quantite" class="form-control" value="@item.Quantite">
+                                        <input type="hidden" name="produitId" value="@item.ProduitId" />
+                                        <button type="submit">
+                                            <img src="/images/valid.jpg" style="width:25px" alt="Augmenter la quantité" />
+                                        </button>
+                                    </form>                                 
+                                    </div>
+                            </td>
                             <td>@item.PrixUnitaire.ToString("C")</td>
                             <td>@(item.Quantite * item.PrixUnitaire) €</td>
+                           
                             <td>
                                 <form method="post" asp-action="RetirerDuPanier" asp-controller="Boutique" class="d-inline">
                                     <input type="hidden" name="produitId" value="@item.ProduitId" />

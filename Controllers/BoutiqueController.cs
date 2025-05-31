@@ -20,6 +20,15 @@ namespace AppGestionStockMVC.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> ChangerQuantitéPanier(int produitId, int quantite)
+        {
+            await RetirerDuPanier(produitId);
+            await AjouterAuPanier(produitId, quantite);
+            TempData["Message"] = "Produit ajouté au panier.";
+            return RedirectToAction("MonPanier");
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AjouterAuPanier(int produitId, int quantite)
         {
             var produits = await _stockService.GetProduitsAsync();

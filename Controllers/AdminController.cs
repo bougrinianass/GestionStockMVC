@@ -7,32 +7,35 @@ using Microsoft.AspNetCore.Mvc;
 namespace AppGestionStockMVC.Controllers
 {
     [Authorize]
-    public class StockController : Controller
+    public class AdminController : Controller
     {
 
         private readonly StockService _stockService;
 
-        public StockController(StockService stockService)
+        private readonly BoutiqueService _boutiqueService;
+
+        public AdminController(StockService stockService, BoutiqueService boutiqueService)
         {
             _stockService = stockService;
+            _boutiqueService = boutiqueService;
         }
 
         public async Task<IActionResult> Index()
         {
             var produits = await _stockService.GetProduitsAsync();
-            return View(produits);
+            return View("Produit/Index",produits);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             var produits = await _stockService.GetProduitsAsync();
-            return View(produits.FirstOrDefault(s => s.Id == id));
+            return View("Produit/Edit", produits.FirstOrDefault(s => s.Id == id));
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return View("Produit/Create");
         }
 
         public async Task<IActionResult> CreateProduit(Produit produit)
@@ -63,7 +66,7 @@ namespace AppGestionStockMVC.Controllers
         {
             var produits = await _stockService.GetProduitsAsync();
             var produit = produits.FirstOrDefault(produits => produits.Id == id);
-            return View(produit);
+            return View("Produit/Details",produit);
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
@@ -101,5 +104,18 @@ namespace AppGestionStockMVC.Controllers
             return File(fileContent, context.ContentType, $"Produits{context.FileExtension}");
         }
 
+        public async Task<ActionResult> ValidationCommande()
+        {
+            var commandes = await _boutiqueService.GetCommandesAsync();
+            return View("Commande",commandes);
+
+        }
+
+        public async Task<ActionResult> ListeCommande()
+        {
+            var commandes = await _boutiqueService.GetCommandesAsync();
+            return View("Commande/Index", commandes);
+
+        }
     }
 }

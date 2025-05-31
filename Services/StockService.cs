@@ -17,7 +17,7 @@ namespace AppGestionStockMVC.Services
 
             // ⚠️ Remplace par ton vrai token ou méthode d'obtention
             _httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJleHAiOjE3NDgxMDgxMjF9.MI-_pAVqxKeJfRrOGt51Jvp4d08hAJO2lx_9inHwzdM");
+                new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJleHAiOjE3NTAyNjMzMjZ9.r7yIvUeGmSpucb0qYuD-63jtZcPVTKarN_nqwZZDsP8");
         }
 
         public async Task<List<Produit>> GetProduitsAsync()
