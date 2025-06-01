@@ -115,7 +115,13 @@ namespace AppGestionStockMVC.Controllers
         {
             var commandes = await _boutiqueService.GetCommandesAsync();
             return View("Commande/Index", commandes);
+        }
 
+        public async Task<ActionResult> DetailsCommande(int id)
+        {
+            var commandes = await _boutiqueService.GetCommandesAsync();
+            var commande= commandes.FirstOrDefault(c=>c.Id==id);
+            return View("Commande/Details",commande);
         }
     }
 }

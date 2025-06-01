@@ -126,6 +126,10 @@ namespace AppGestionStockMVC.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, "Client");
                     }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

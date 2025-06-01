@@ -1,0 +1,39 @@
+﻿@model Commande
+
+<div class="container mt-5">
+    <h1 class="mb-4">Détails de la commande</h1>
+
+    <form>
+        <div class="mb-3">
+            <label class="form-label">ID Commande</label>
+            <input type="text" class="form-control" value="@Model.Id" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date de commande</label>
+            <input type="text" class="form-control" value="@Model.DateCommande" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Statut</label>
+            <input type="text" class="form-control" value="@Model.Statut" readonly />
+        </div>
+
+        <h4 class="mt-4">Lignes de commande</h4>
+        @foreach (var ligneCmd in Model.LignesCommande)
+        {
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" value="@ligneCmd.Produit.Name" readonly />
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" value="@ligneCmd.Produit.Quantity" readonly />
+                </div>
+            </div>
+        }
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Valider la commande</button>
+        </div>
+    </form>
+</div>
